@@ -1,0 +1,306 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Order Lab YMC",
+        "description": "Dokumentasi Swagger untuk API Order Lab YMC",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://ip-server/api-order-slims/",
+            "description": "Order API LIS YMC"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login berhasil"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "1|token..."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Gagal login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Username atau password salah"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order-lab": {
+            "post": {
+                "tags": [
+                    "Order Lab"
+                ],
+                "summary": "Menerima data order lab dari sistem eksternal",
+                "operationId": "receiveOrderLab",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order_data": {
+                                        "properties": {
+                                            "no_rm": {
+                                                "type": "string",
+                                                "example": "123456"
+                                            },
+                                            "nama_pas": {
+                                                "type": "string",
+                                                "example": "Andi"
+                                            },
+                                            "tgl_lahir": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "1990-01-01"
+                                            },
+                                            "alamat": {
+                                                "type": "string",
+                                                "example": "Jl. Mawar"
+                                            },
+                                            "jenis_kel": {
+                                                "type": "string",
+                                                "example": "L"
+                                            },
+                                            "kode_dokter_kirim": {
+                                                "type": "string",
+                                                "example": "D123"
+                                            },
+                                            "nama_dokter_kirim": {
+                                                "type": "string",
+                                                "example": "Dr. Siti"
+                                            },
+                                            "kode_ruangan": {
+                                                "type": "string",
+                                                "example": "R101"
+                                            },
+                                            "nama_ruang": {
+                                                "type": "string",
+                                                "example": "Ruang A"
+                                            },
+                                            "cara_bayar": {
+                                                "type": "string",
+                                                "example": "BPJS"
+                                            },
+                                            "cara_masuk": {
+                                                "type": "string",
+                                                "example": "Rawat Jalan"
+                                            },
+                                            "tgl_order": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2025-04-19"
+                                            },
+                                            "jam_order": {
+                                                "type": "string",
+                                                "example": "08:00:00"
+                                            },
+                                            "jns_rawat": {
+                                                "type": "string",
+                                                "example": "RJ"
+                                            },
+                                            "no_lab": {
+                                                "type": "string",
+                                                "example": "LAB001"
+                                            },
+                                            "kode_test": {
+                                                "type": "string",
+                                                "example": "KT123"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "tests_order": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "kode_test": {
+                                                    "type": "string",
+                                                    "example": "KT123"
+                                                },
+                                                "nama_test": {
+                                                    "type": "string",
+                                                    "example": "Hemoglobin"
+                                                },
+                                                "nama_jenis": {
+                                                    "type": "string",
+                                                    "example": "Darah Lengkap"
+                                                },
+                                                "kode_jenis": {
+                                                    "type": "string",
+                                                    "example": "DJ01"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sukses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Order lab berhasil diproses dan disimpan"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "kode_transaksi_lab": {
+                                                    "type": "string",
+                                                    "example": "2404190001"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Data kosong/tidak valid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data order_data atau tests_order kosong/tidak valid"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Order Lab",
+            "description": "Order Lab"
+        }
+    ]
+}
